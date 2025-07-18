@@ -116,28 +116,45 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function setupEventListeners() {
     // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const filteredCharacters = characters.filter(character => 
-            character.name.toLowerCase().includes(searchTerm) ||
-            (character.occupation && character.occupation.toLowerCase().includes(searchTerm)) ||
-            (character.address && character.address.toLowerCase().includes(searchTerm))
-        );
-        renderCharacters(filteredCharacters);
-    });
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const filteredCharacters = characters.filter(character => 
+                character.name.toLowerCase().includes(searchTerm) ||
+                (character.occupation && character.occupation.toLowerCase().includes(searchTerm)) ||
+                (character.address && character.address.toLowerCase().includes(searchTerm))
+            );
+            renderCharacters(filteredCharacters);
+        });
+    } else {
+        console.error('Search input element not found');
+    }
 
     // Form submission
-    document.getElementById('characterForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        saveCharacter();
-    });
+    const characterForm = document.getElementById('characterForm');
+    if (characterForm) {
+        characterForm.addEventListener('submit', function(e) {
+            console.log('Form submit event triggered');
+            e.preventDefault();
+            saveCharacter();
+        });
+        console.log('Character form event listener attached successfully');
+    } else {
+        console.error('Character form element not found');
+    }
 
     // Close modal when clicking outside
-    document.getElementById('characterModal').addEventListener('click', function(e) {
-        if (e.target === this) {
-            closeModal();
-        }
-    });
+    const characterModal = document.getElementById('characterModal');
+    if (characterModal) {
+        characterModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+    } else {
+        console.error('Character modal element not found');
+    }
 }
 
 function generateId() {
@@ -188,6 +205,8 @@ function closeModal() {
 }
 
 function saveCharacter() {
+    console.log('saveCharacter function called');
+    
     const formData = {
         name: document.getElementById('name').value.trim(),
         characterType: document.getElementById('characterType').value,
@@ -204,6 +223,8 @@ function saveCharacter() {
         notes: document.getElementById('notes').value.trim()
     };
 
+    console.log('Form data collected:', formData);
+
     if (!formData.name) {
         alert('Please enter a character name.');
         return;
@@ -218,12 +239,16 @@ function saveCharacter() {
         const newCharacter = {
             id: generateId(),
             ...formData,
+            dateAdded: new Date().toISOString(),
             createdAt: new Date().toISOString()
         };
         characters.push(newCharacter);
+        console.log('New character added:', newCharacter);
     }
 
     localStorage.setItem('summersFallCharacters', JSON.stringify(characters));
+    console.log('Characters saved to localStorage:', characters);
+    console.log('Total characters count:', characters.length);
     renderCharacters();
     closeModal();
 }
@@ -329,7 +354,12 @@ function handleDragEnd(e) {
 
 // Drag and Drop functionality
 function initializeDragAndDrop() {
-    const charactersContainer = document.querySelector('.characters-container');
+    const charactersContainer = document.querySelector('.character-grid');
+    
+    if (!charactersContainer) {
+        console.log('Character grid not found, skipping drag and drop initialization');
+        return;
+    }
     
     charactersContainer.addEventListener('dragstart', function(e) {
         if (e.target.classList.contains('character-card')) {

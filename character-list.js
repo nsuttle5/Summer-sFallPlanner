@@ -292,6 +292,7 @@ class CharacterList {
         const character = {
             id: Date.now().toString(),
             name: name,
+            characterType: 'side', // Default to side character
             occupation: occupation,
             age: age,
             dateAdded: new Date().toISOString(),
