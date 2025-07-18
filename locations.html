@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locations Directory - Summer's Fall</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="locations.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link active">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Locations Directory</h2>
+            <p>Map out the important places in your story</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="locationSearchInput" placeholder="Search locations...">
+            </div>
+            <div class="control-buttons">
+                <button class="add-btn" onclick="openMapImportModal()">🗺️ Import Map</button>
+                <button class="add-btn" onclick="openAddLocationModal()">+ Add Location</button>
+            </div>
+        </div>
+
+        <div class="list-container">
+            <div class="list-header">
+                <div class="sort-controls">
+                    <label for="locationSortBy">Sort by:</label>
+                    <select id="locationSortBy">
+                        <option value="name">Name</option>
+                        <option value="type">Type</option>
+                        <option value="importance">Importance</option>
+                        <option value="dateAdded">Date Added</option>
+                    </select>
+                    <button id="toggleLocationSort" class="sort-btn">↑↓</button>
+                </div>
+                <div class="view-controls">
+                    <button id="expandAllLocations" class="view-btn">Expand All</button>
+                    <button id="collapseAllLocations" class="view-btn">Collapse All</button>
+                </div>
+            </div>
+
+            <div class="location-list" id="locationList">
+                <!-- Location list items will be inserted here -->
+            </div>
+
+            <div class="empty-state" id="locationEmptyState" style="display: none;">
+                <div class="empty-icon">🗺️</div>
+                <h3>No Locations Mapped Yet</h3>
+                <p>Every great story needs a world to unfold in. Start mapping the places where your characters live, work, and discover their destinies.</p>
+                <button class="add-btn" onclick="openAddLocationModal()">🏛️ Begin Your World Map</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Location Modal -->
+    <div class="modal" id="addLocationModal">
+        <div class="modal-content">
+            <h2>Add New Location</h2>
+            <form id="addLocationForm">
+                <div class="form-group">
+                    <label for="locationName">Location Name *</label>
+                    <input type="text" id="locationName" required placeholder="e.g., The Old Bakery">
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationType">Type</label>
+                    <select id="locationType">
+                        <option value="business">Business/Shop</option>
+                        <option value="residence">Residence</option>
+                        <option value="landmark">Landmark</option>
+                        <option value="nature">Natural Location</option>
+                        <option value="institutional">Institution</option>
+                        <option value="entertainment">Entertainment</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationAddress">Address/Area</label>
+                    <input type="text" id="locationAddress" placeholder="e.g., 123 Main Street, Downtown">
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationImportance">Story Importance</label>
+                    <select id="locationImportance">
+                        <option value="high">🌟 High - Major plot location</option>
+                        <option value="medium">📍 Medium - Regular appearance</option>
+                        <option value="low">🏞️ Low - Background/mention only</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationImageUrl">Location Photo URL</label>
+                    <input type="url" id="locationImageUrl" placeholder="https://example.com/location.jpg">
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationDescription">Description</label>
+                    <textarea id="locationDescription" placeholder="Describe the location's appearance, atmosphere, and significance..." rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationHistory">History & Backstory</label>
+                    <textarea id="locationHistory" placeholder="What's the history of this place? Any interesting past events?" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationCharacters">Associated Characters</label>
+                    <textarea id="locationCharacters" placeholder="Which characters frequent this location? Who works/lives here?" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="locationNotes">Story Notes & Ideas</label>
+                    <textarea id="locationNotes" placeholder="Plot points, scenes, or story ideas involving this location..." rows="3"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeAddLocationModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Add Location</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Map Import Modal -->
+    <div class="modal" id="mapImportModal">
+        <div class="modal-content">
+            <h2>Import World Map</h2>
+            <p>Upload your custom world map to use as a reference for location placement</p>
+            
+            <div class="map-upload-area" id="mapUploadArea">
+                <div class="upload-icon">🗺️</div>
+                <p><strong>Drag & drop your map image here</strong></p>
+                <p>or click to browse files</p>
+                <input type="file" id="mapUpload" accept="image/*" style="display: none;">
+            </div>
+            
+            <div id="mapPreview" style="display: none;">
+                <h3>Map Preview</h3>
+                <div class="map-preview-container">
+                    <img id="mapPreviewImage" alt="Map Preview" style="max-width: 100%; height: auto; border-radius: 8px;">
+                </div>
+                <div class="form-group">
+                    <label for="mapName">Map Name</label>
+                    <input type="text" id="mapName" placeholder="Enter a name for this map...">
+                </div>
+                <div class="form-group">
+                    <label for="mapDescription">Map Description</label>
+                    <textarea id="mapDescription" placeholder="Describe this map..." rows="3"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="cancel-btn" onclick="closeMapImportModal()">Cancel</button>
+                <button type="button" class="save-btn" id="saveMapBtn" onclick="saveMap()" style="display: none;">Save Map</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="locations.js"></script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer's Fall - Quest Manager</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="quest-manager.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link active">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Quest Manager</h2>
+            <p>Plan and track your game's quests and storylines</p>
+        </div>
+
+        <div class="quest-controls">
+            <div class="search-filter-section">
+                <div class="search-bar">
+                    <input type="text" id="questSearchInput" placeholder="Search quests by name, description, or characters...">
+                </div>
+                <div class="filter-controls">
+                    <select id="statusFilter">
+                        <option value="all">🔍 All Statuses</option>
+                        <option value="planning">📋 Planning</option>
+                        <option value="active">🔥 Active</option>
+                        <option value="completed">✅ Completed</option>
+                        <option value="cancelled">❌ Cancelled</option>
+                    </select>
+                    <select id="typeFilter">
+                        <option value="all">🔍 All Types</option>
+                        <option value="main">👑 Main Quest</option>
+                        <option value="side">⭐ Side Quest</option>
+                        <option value="fetch">📦 Fetch Quest</option>
+                        <option value="combat">⚔️ Combat Quest</option>
+                        <option value="social">💬 Social Quest</option>
+                        <option value="exploration">🗺️ Exploration</option>
+                    </select>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <button class="btn-primary" onclick="openQuestModal()">
+                    ⚔️ Add New Quest
+                </button>
+            </div>
+        </div>
+
+        <div class="quest-grid" id="questGrid">
+            <!-- Quests will be dynamically inserted here -->
+        </div>
+
+        <div class="empty-state" id="questEmptyState" style="display: none;">
+            <h3>No Quests Yet</h3>
+            <p>Start building your quest system by adding your first quest!</p>
+            <button class="btn-primary" onclick="openQuestModal()">
+                ⚔️ Create Your First Quest
+            </button>
+        </div>
+    </div>
+
+    <!-- Quest Modal -->
+    <div class="modal" id="questModal">
+        <div class="modal-content quest-modal-content">
+            <h2 id="questModalTitle">Add New Quest</h2>
+            <form id="questForm">
+                <div class="form-section">
+                    <h3>Basic Information</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="questName">Quest Name *</label>
+                            <input type="text" id="questName" required placeholder="Enter quest name...">
+                        </div>
+                        <div class="form-group">
+                            <label for="questType">Quest Type</label>
+                            <select id="questType">
+                                <option value="">Choose quest type...</option>
+                                <option value="main">👑 Main Quest</option>
+                                <option value="side">⭐ Side Quest</option>
+                                <option value="fetch">📦 Fetch Quest</option>
+                                <option value="combat">⚔️ Combat Quest</option>
+                                <option value="social">💬 Social Quest</option>
+                                <option value="exploration">🗺️ Exploration</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questStatus">Status</label>
+                            <select id="questStatus">
+                                <option value="">Choose status...</option>
+                                <option value="planning">📋 Planning</option>
+                                <option value="active">🔥 Active</option>
+                                <option value="completed">✅ Completed</option>
+                                <option value="cancelled">❌ Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questPriority">Priority</label>
+                            <select id="questPriority">
+                                <option value="">Choose priority...</option>
+                                <option value="low">🟢 Low</option>
+                                <option value="medium">🟡 Medium</option>
+                                <option value="high">🟠 High</option>
+                                <option value="critical">🔴 Critical</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Description & Objectives</h3>
+                    <div class="form-group">
+                        <label for="questDescription">Quest Description</label>
+                        <textarea id="questDescription" placeholder="Describe the quest's background and context..." rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="questObjective">Main Objective</label>
+                        <textarea id="questObjective" placeholder="What is the player trying to accomplish?" rows="2"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Quest Steps</h3>
+                    <div id="questSteps">
+                        <div class="quest-step" data-step="1">
+                            <div class="step-header">
+                                <span class="step-number">Step 1</span>
+                                <button type="button" class="btn-remove-step" onclick="removeQuestStep(this)" style="display: none;">×</button>
+                            </div>
+                            <div class="step-content">
+                                <input type="text" class="step-title" placeholder="Step title..." required>
+                                <textarea class="step-description" placeholder="Step description..." rows="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add-step" onclick="addQuestStep()">+ Add Step</button>
+                </div>
+
+                <div class="form-section">
+                    <h3>Characters & Locations</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="questGiver">Quest Giver</label>
+                            <select id="questGiver">
+                                <option value="">No specific quest giver</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="questLocation">Primary Location</label>
+                            <select id="questLocation">
+                                <option value="">No specific location</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="questCharacters">Involved Characters</label>
+                        <div id="questCharacters" class="character-selection">
+                            <!-- Character checkboxes will be populated here -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Rewards & Consequences</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="questReward">Reward</label>
+                            <textarea id="questReward" placeholder="What does the player receive for completing this quest?" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="questConsequences">Consequences/Failure</label>
+                            <textarea id="questConsequences" placeholder="What happens if the quest fails or is ignored?" rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <h3>Additional Notes</h3>
+                    <div class="form-group">
+                        <label for="questNotes">Development Notes</label>
+                        <textarea id="questNotes" placeholder="Design notes, technical requirements, story connections..." rows="3"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeQuestModal()">Cancel</button>
+                    <button type="submit" class="btn-save">Save Quest</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="quest-manager.js"></script>
+</body>
+</html>

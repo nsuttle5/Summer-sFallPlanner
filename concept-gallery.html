@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concept Art Gallery - Summer's Fall</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="concept-gallery.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link active">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Concept Art Gallery</h2>
+            <p>Organize and manage your visual inspiration</p>
+        </div>
+
+        <div class="gallery-layout">
+            <!-- Sidebar Controls -->
+            <div class="gallery-sidebar">
+                <div class="upload-section">
+                    <h3>📤 Upload Art</h3>
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <div class="upload-icon">🖼️</div>
+                            <p>Drop images here or click to browse</p>
+                            <p class="upload-hint">Supports JPG, PNG, GIF, WebP</p>
+                        </div>
+                        <input type="file" id="imageUpload" accept="image/*" multiple style="display: none;">
+                    </div>
+                </div>
+
+                <div class="filter-section">
+                    <h3>🏷️ Filter by Tags</h3>
+                    <div class="search-bar">
+                        <input type="text" id="searchInput" placeholder="Search images...">
+                    </div>
+                    <div class="tag-filters" id="tagFilters">
+                        <button class="tag-filter active" data-tag="all">All Images</button>
+                        <!-- Tag filters will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="view-options">
+                    <h3>👁️ View Options</h3>
+                    <div class="view-controls">
+                        <button class="view-btn active" data-view="grid" title="Grid View">⊞</button>
+                        <button class="view-btn" data-view="list" title="List View">☰</button>
+                        <button class="view-btn" data-view="masonry" title="Masonry View">⊡</button>
+                    </div>
+                    <div class="size-control">
+                        <label for="imageSize">Image Size:</label>
+                        <input type="range" id="imageSize" min="150" max="400" value="250">
+                    </div>
+                </div>
+
+                <div class="stats-section">
+                    <h3>📊 Gallery Stats</h3>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Images:</span>
+                            <span class="stat-value" id="totalImages">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Unique Tags:</span>
+                            <span class="stat-value" id="uniqueTags">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Storage Used:</span>
+                            <span class="stat-value" id="storageUsed">0 MB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Gallery -->
+            <div class="gallery-main">
+                <div class="gallery-header">
+                    <div class="results-info">
+                        <span id="resultsCount">0 images</span>
+                        <span id="activeFilters"></span>
+                    </div>
+                    <div class="sort-controls">
+                        <label for="sortBy">Sort by:</label>
+                        <select id="sortBy">
+                            <option value="dateAdded">Date Added</option>
+                            <option value="name">Name</option>
+                            <option value="tags">Tag Count</option>
+                            <option value="size">File Size</option>
+                        </select>
+                        <button id="sortOrder" class="sort-btn" title="Toggle Sort Order">↓</button>
+                    </div>
+                </div>
+
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Images will be inserted here -->
+                </div>
+
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <div class="empty-icon">🖼️</div>
+                    <h3>No Images Yet</h3>
+                    <p>Upload your first concept art to get started!</p>
+                    <button class="upload-btn" onclick="triggerUpload()">📤 Upload Images</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Image Detail Modal -->
+        <div class="modal" id="imageModal">
+            <div class="modal-content image-modal-content">
+                <div class="image-detail">
+                    <div class="image-preview">
+                        <img id="modalImage" src="" alt="">
+                        <div class="image-actions">
+                            <button onclick="downloadImage()" title="Download">📥</button>
+                            <button onclick="deleteImage()" title="Delete">🗑️</button>
+                            <button onclick="closeImageModal()" title="Close">✕</button>
+                        </div>
+                    </div>
+                    <div class="image-info">
+                        <div class="info-section">
+                            <label for="imageName">Name:</label>
+                            <input type="text" id="imageName" placeholder="Enter image name...">
+                        </div>
+                        <div class="info-section">
+                            <label for="imageDescription">Description:</label>
+                            <textarea id="imageDescription" placeholder="Describe this concept art..."></textarea>
+                        </div>
+                        <div class="info-section">
+                            <label for="imageTags">Tags:</label>
+                            <div class="tag-input-container">
+                                <input type="text" id="imageTagInput" placeholder="Add a tag and press Enter...">
+                                <div class="image-tags" id="imageTags">
+                                    <!-- Tags will be inserted here -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="info-section">
+                            <label>Image Details:</label>
+                            <div class="image-metadata">
+                                <div class="meta-item">
+                                    <span class="meta-label">Size:</span>
+                                    <span class="meta-value" id="imageSize">-</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Dimensions:</span>
+                                    <span class="meta-value" id="imageDimensions">-</span>
+                                </div>
+                                <div class="meta-item">
+                                    <span class="meta-label">Added:</span>
+                                    <span class="meta-value" id="imageDate">-</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-actions">
+                            <button onclick="saveImageInfo()" class="save-btn">💾 Save Changes</button>
+                            <button onclick="closeImageModal()" class="cancel-btn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tag Management Modal -->
+        <div class="modal" id="tagModal">
+            <div class="modal-content">
+                <h2>Manage Tags</h2>
+                <p>Create and organize your concept art tags</p>
+                <div class="tag-management">
+                    <div class="create-tag">
+                        <input type="text" id="newTagInput" placeholder="Create new tag...">
+                        <button onclick="createTag()">Add Tag</button>
+                    </div>
+                    <div class="existing-tags" id="existingTags">
+                        <!-- Existing tags will be listed here -->
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button onclick="closeTagModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="concept-gallery.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Story Editor - Summer's Fall</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="story-editor.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link active">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Story Editor</h2>
+            <p>Write and organize your branching narrative</p>
+        </div>
+
+        <div class="editor-layout">
+            <!-- Sidebar -->
+            <div class="editor-sidebar">
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3>📚 Story Structure</h3>
+                        <button class="add-btn-small" onclick="addChapter()">+ Chapter</button>
+                    </div>
+                    <div class="chapter-list" id="chapterList">
+                        <!-- Chapters will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <div class="section-header">
+                        <h3>🔗 Quick References</h3>
+                        <button class="toggle-refs" onclick="toggleReferences()">Show/Hide</button>
+                    </div>
+                    <div class="references-panel" id="referencesPanel">
+                        <div class="ref-category">
+                            <h4>Characters</h4>
+                            <div class="ref-list" id="characterRefs"></div>
+                        </div>
+                        <div class="ref-category">
+                            <h4>Locations</h4>
+                            <div class="ref-list" id="locationRefs"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Editor -->
+            <div class="editor-main">
+                <div class="editor-toolbar">
+                    <div class="toolbar-group">
+                        <button class="tool-btn" onclick="undoAction()" id="undoBtn" title="Undo (Ctrl+Z)">↶ Undo</button>
+                        <button class="tool-btn" onclick="redoAction()" id="redoBtn" title="Redo (Ctrl+Y)">↷ Redo</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="tool-btn" onclick="formatText('bold')" title="Bold">B</button>
+                        <button class="tool-btn" onclick="formatText('italic')" title="Italic">I</button>
+                        <button class="tool-btn" onclick="formatText('underline')" title="Underline">U</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <button class="tool-btn" onclick="addBranch()" title="Add Story Branch">🌿 Branch</button>
+                        <button class="tool-btn" onclick="addChoice()" title="Add Choice">⚡ Choice</button>
+                        <button class="tool-btn" onclick="addNote()" title="Add Note">📝 Note</button>
+                    </div>
+                    <div class="toolbar-group">
+                        <span class="word-count" id="wordCount">0 words</span>
+                        <button class="tool-btn" onclick="saveStory()" title="Save">💾 Save</button>
+                    </div>
+                </div>
+
+                <div class="editor-content">
+                    <div class="chapter-header" id="chapterHeader">
+                        <input type="text" id="chapterTitle" placeholder="Chapter Title" class="chapter-title-input">
+                        <div class="chapter-meta">
+                            <input type="text" id="chapterTags" placeholder="Tags (separated by commas)" class="chapter-tags-input">
+                        </div>
+                    </div>
+
+                    <div class="writing-area">
+                        <div contenteditable="true" class="text-editor" id="textEditor" placeholder="Start writing your story..."></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Branch Modal -->
+        <div class="modal" id="branchModal">
+            <div class="modal-content">
+                <h2>Create Story Branch</h2>
+                <p>Add a branching point in your story where different choices lead to different outcomes.</p>
+                <form id="branchForm">
+                    <div class="form-group">
+                        <label for="branchTitle">Branch Title</label>
+                        <input type="text" id="branchTitle" placeholder="e.g., 'Player chooses their response'">
+                    </div>
+                    <div class="form-group">
+                        <label for="branchDescription">Description</label>
+                        <textarea id="branchDescription" placeholder="Describe what happens at this branching point..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Choices</label>
+                        <div id="choicesList">
+                            <div class="choice-item">
+                                <input type="text" placeholder="Choice 1" class="choice-input">
+                                <textarea placeholder="Outcome..." class="choice-outcome"></textarea>
+                            </div>
+                            <div class="choice-item">
+                                <input type="text" placeholder="Choice 2" class="choice-input">
+                                <textarea placeholder="Outcome..." class="choice-outcome"></textarea>
+                            </div>
+                        </div>
+                        <button type="button" onclick="addChoiceToModal()">+ Add Choice</button>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="closeBranchModal()">Cancel</button>
+                        <button type="submit">Insert Branch</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Note Modal -->
+        <div class="modal" id="noteModal">
+            <div class="modal-content">
+                <h2>Add Story Note</h2>
+                <p>Add development notes, reminders, or alternative ideas.</p>
+                <form id="noteForm">
+                    <div class="form-group">
+                        <label for="noteType">Note Type</label>
+                        <select id="noteType">
+                            <option value="dev">Development Note</option>
+                            <option value="idea">Alternative Idea</option>
+                            <option value="reminder">Reminder</option>
+                            <option value="research">Research Needed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="noteContent">Note Content</label>
+                        <textarea id="noteContent" placeholder="Write your note here..."></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" onclick="closeNoteModal()">Cancel</button>
+                        <button type="submit">Insert Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="story-editor.js"></script>
+</body>
+</html>

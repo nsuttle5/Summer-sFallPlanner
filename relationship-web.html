@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer's Fall - Relationship Web</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="relationship-web.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link active">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Relationship Web</h2>
+            <p>Visualize connections between characters and locations in your world</p>
+        </div>
+
+        <div class="web-controls">
+            <div class="control-section">
+                <h3>View Options</h3>
+                <div class="control-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showCharacters" checked>
+                        <span class="checkmark"></span>
+                        Show Characters
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showLocations" checked>
+                        <span class="checkmark"></span>
+                        Show Locations
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="showLabels" checked>
+                        <span class="checkmark"></span>
+                        Show Labels
+                    </label>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Quick Actions</h3>
+                <div class="control-group">
+                    <button class="btn-primary" onclick="openRelationshipModal()">
+                        ➕ Add Relationship
+                    </button>
+                    <button class="btn-secondary" onclick="showManageRelationshipsModal()">
+                        🗑️ Manage Relationships
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>View Controls</h3>
+                <div class="control-group">
+                    <button class="btn-secondary" onclick="centerWeb()">
+                        🎯 Center View
+                    </button>
+                    <button class="btn-secondary" onclick="fitToView()">
+                        📐 Fit to View
+                    </button>
+                    <button class="btn-secondary" onclick="resetWebLayout()">
+                        � Reset Layout
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Developer Tools</h3>
+                <div class="control-group">
+                    <button class="btn-secondary" onclick="reloadWebData()">
+                        🔃 Reload Data
+                    </button>
+                    <button class="btn-secondary" onclick="debugRelationshipData()">
+                        🔍 Debug Data
+                    </button>
+                    <button class="btn-secondary" onclick="testRelationship()">
+                        🧪 Test Connection
+                    </button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3>Filters</h3>
+                <div class="filter-group">
+                    <select id="relationshipTypeFilter">
+                        <option value="all">All Relationship Types</option>
+                        <option value="family">Family</option>
+                        <option value="friend">Friend</option>
+                        <option value="enemy">Enemy</option>
+                        <option value="romantic">Romantic</option>
+                        <option value="professional">Professional</option>
+                        <option value="lives_at">Lives At</option>
+                        <option value="works_at">Works At</option>
+                        <option value="frequents">Frequents</option>
+                        <option value="owns">Owns</option>
+                    </select>
+                    <select id="characterTypeFilter">
+                        <option value="all">All Character Types</option>
+                        <option value="main">Main Characters</option>
+                        <option value="side">Side Characters</option>
+                        <option value="background">Background Characters</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="web-container">
+            <canvas id="relationshipCanvas"></canvas>
+            <div class="web-info" id="webInfo">
+                <h4>Web Statistics</h4>
+                <div class="stat-item">
+                    <span class="stat-label">Characters:</span>
+                    <span class="stat-value" id="characterCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Locations:</span>
+                    <span class="stat-value" id="locationCount">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Connections:</span>
+                    <span class="stat-value" id="connectionCount">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" id="webEmptyState" style="display: none;">
+            <h3>No Data Available</h3>
+            <p>Add some characters and locations first, then create relationships between them!</p>
+            <div class="empty-actions">
+                <a href="main.html" class="btn-primary">Add Characters</a>
+                <a href="locations.html" class="btn-secondary">Add Locations</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Relationship Modal -->
+    <div class="modal" id="relationshipModal">
+        <div class="modal-content relationship-modal-content">
+            <div class="modal-header">
+                <h3 id="relationshipModalTitle">✨ Create New Relationship</h3>
+                <button class="modal-close" onclick="closeRelationshipModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="relationshipForm">
+                    <div class="form-section">
+                        <h4>Connection Details</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="sourceType">From:</label>
+                                <select id="sourceType" onchange="updateSourceOptions()">
+                                    <option value="character">Character</option>
+                                    <option value="location">Location</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="sourceId">Select Source:</label>
+                                <select id="sourceId" required>
+                                    <option value="">Choose...</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="targetType">To:</label>
+                                <select id="targetType" onchange="updateTargetOptions()">
+                                    <option value="character">Character</option>
+                                    <option value="location">Location</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="targetId">Select Target:</label>
+                                <select id="targetId" required>
+                                    <option value="">Choose...</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Relationship Type</h4>
+                        <div class="form-group">
+                            <label for="relationshipType">Type:</label>
+                            <select id="relationshipType" required>
+                                <option value="">Choose relationship type...</option>
+                                <optgroup label="Character to Character">
+                                    <option value="family">Family</option>
+                                    <option value="friend">Friend</option>
+                                    <option value="enemy">Enemy</option>
+                                    <option value="romantic">Romantic</option>
+                                    <option value="professional">Professional</option>
+                                </optgroup>
+                                <optgroup label="Character to Location">
+                                    <option value="lives_at">Lives At</option>
+                                    <option value="works_at">Works At</option>
+                                    <option value="frequents">Frequents</option>
+                                    <option value="owns">Owns</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="relationshipDescription">Description (Optional):</label>
+                            <textarea id="relationshipDescription" rows="3" placeholder="Additional details about this relationship..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h4>Visual Properties</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="connectionStrength">Connection Strength:</label>
+                                <select id="connectionStrength">
+                                    <option value="weak">Weak</option>
+                                    <option value="normal" selected>Normal</option>
+                                    <option value="strong">Strong</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="connectionColor">Connection Color:</label>
+                                <select id="connectionColor">
+                                    <option value="default">Default</option>
+                                    <option value="red">Red</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="green">Green</option>
+                                    <option value="orange">Orange</option>
+                                    <option value="purple">Purple</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeRelationshipModal()">Cancel</button>
+                <button type="button" class="btn-primary" onclick="saveRelationship()">
+                    <span class="btn-icon">✨</span>
+                    Create Relationship
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Manage Relationships Modal -->
+    <div class="modal" id="manageRelationshipsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Manage Relationships</h3>
+                <button class="modal-close" onclick="closeManageRelationshipsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="relationship-list" id="relationshipList">
+                    <!-- Relationships will be populated dynamically -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeManageRelationshipsModal()">Close</button>
+                <button type="button" class="btn-danger" onclick="deleteSelectedRelationships()">Delete Selected</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Node Details Modal -->
+    <div class="modal" id="nodeDetailsModal">
+        <div class="modal-content node-details-modal-content">
+            <div class="modal-header">
+                <h3 id="nodeDetailsTitle">Node Details</h3>
+                <button class="modal-close" onclick="closeNodeDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="nodeDetailsBody">
+                <!-- Details will be populated dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-secondary" onclick="closeNodeDetailsModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="relationship-web.js"></script>
+</body>
+</html>

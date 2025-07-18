@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Brainstorm Canvas - Summer's Fall</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="brainstorm.css">
+</head>
+<body>
+    <div class="brainstorm-container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link active">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="brainstorm-header">
+            <h2>Character Brainstorm Canvas</h2>
+            <div class="brainstorm-controls">
+                <button class="tool-btn active" data-tool="text" title="Text Tool">📝</button>
+                <button class="tool-btn" data-tool="draw" title="Draw Tool">✏️</button>
+                <button class="tool-btn" data-tool="sticky" title="Sticky Note">🗒️</button>
+                <div class="color-picker">
+                    <input type="color" id="colorPicker" value="#3a5a9a">
+                </div>
+                <div class="brush-size">
+                    <input type="range" id="brushSize" min="1" max="20" value="3">
+                    <span id="brushSizeDisplay">3px</span>
+                </div>
+                <button class="action-btn" id="clearCanvas">🗑️ Clear</button>
+                <button class="action-btn" id="undoAction" disabled>↶ Undo</button>
+                <button class="action-btn" id="redoAction" disabled>↷ Redo</button>
+                <button class="action-btn" id="saveCanvas">💾 Save</button>
+                <button class="action-btn" id="loadCanvas">📁 Load</button>
+                <a href="main.html" class="action-btn back-btn">← Back to Characters</a>
+            </div>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="drawingCanvas" width="1920" height="1080"></canvas>
+            <div id="textElements"></div>
+            <div id="stickyNotes"></div>
+            <div id="arrows"></div>
+        </div>
+
+        <!-- Text Input Modal -->
+        <div id="textModal" class="text-modal hidden">
+            <div class="modal-content">
+                <h3>Add Text</h3>
+                <textarea id="textInput" placeholder="Enter your brainstorming text..."></textarea>
+                <div class="text-style-controls">
+                    <select id="fontSize">
+                        <option value="14">Small</option>
+                        <option value="18" selected>Medium</option>
+                        <option value="24">Large</option>
+                        <option value="32">Extra Large</option>
+                    </select>
+                    <label><input type="checkbox" id="boldText"> Bold</label>
+                    <label><input type="checkbox" id="italicText"> Italic</label>
+                </div>
+                <div class="modal-actions">
+                    <button id="cancelText">Cancel</button>
+                    <button id="addText">Add Text</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sticky Note Modal -->
+        <div id="stickyModal" class="text-modal hidden">
+            <div class="modal-content">
+                <h3>Add Sticky Note</h3>
+                <textarea id="stickyInput" placeholder="Character idea, relationship note, plot point..."></textarea>
+                <div class="sticky-color-picker">
+                    <div class="color-option" data-color="#f9a749" style="background: #f9a749"></div>
+                    <div class="color-option" data-color="#f1bc08" style="background: #f1bc08"></div>
+                    <div class="color-option" data-color="#456dc3" style="background: #456dc3"></div>
+                    <div class="color-option selected" data-color="#5b43b3" style="background: #5b43b3"></div>
+                    <div class="color-option" data-color="#879a9a" style="background: #879a9a"></div>
+                </div>
+                <div class="modal-actions">
+                    <button id="cancelSticky">Cancel</button>
+                    <button id="addSticky">Add Note</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="brainstorm.js"></script>
+</body>
+</html>

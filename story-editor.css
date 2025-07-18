@@ -1,0 +1,539 @@
+/* Story Editor Specific Styles */
+.editor-layout {
+    display: flex;
+    gap: 1rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    height: calc(100vh - 200px);
+    min-height: 600px;
+}
+
+/* Sidebar */
+.editor-sidebar {
+    width: 300px;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 4px solid #5a606d;
+    box-shadow: 0 10px 0px #879a9a, 0 15px 25px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar-section {
+    margin-bottom: 2rem;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #646c7d;
+}
+
+.section-header h3 {
+    color: #2d3436;
+    font-size: 1rem;
+    margin: 0;
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.add-btn-small, .toggle-refs {
+    background: #f9a749;
+    border: 2px solid #f1bc08;
+    border-radius: 6px;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    color: #2d3436;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-btn-small:hover, .toggle-refs:hover {
+    background: #f1bc08;
+    transform: translateY(-2px);
+}
+
+/* Chapter List */
+.chapter-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.chapter-item {
+    background: rgba(230, 235, 240, 0.7);
+    border: 2px solid #879a9a;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    user-select: none;
+    min-height: 60px;
+}
+
+.chapter-item:hover {
+    background: rgba(230, 235, 240, 0.9);
+    transform: translateX(5px);
+}
+
+.chapter-item.active {
+    background: #f9a749;
+    border-color: #f1bc08;
+}
+
+.chapter-item.dragging {
+    opacity: 0.5;
+    transform: rotate(5deg);
+}
+
+.drag-handle {
+    color: #636e72;
+    font-size: 1.2rem;
+    cursor: grab;
+    padding: 0.5rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    height: 40px;
+    margin-top: 2px;
+}
+
+.drag-handle:hover {
+    background: rgba(0, 0, 0, 0.1);
+    color: #2d3436;
+}
+
+.drag-handle:active {
+    cursor: grabbing;
+}
+
+.chapter-content {
+    flex: 1;
+    min-width: 0;
+    padding: 0.25rem 0;
+}
+
+.chapter-content h4 {
+    margin: 0 0 0.5rem 0;
+    color: #2d3436;
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.2;
+}
+
+.chapter-info {
+    font-size: 0.8rem;
+    color: #636e72;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.chapter-placeholder {
+    background: rgba(249, 167, 73, 0.3);
+    border: 2px dashed #f9a749;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.placeholder-text {
+    color: #f1bc08;
+    font-style: italic;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.delete-btn-small {
+    background: transparent;
+    border: none;
+    color: #e74c3c;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.delete-btn-small:hover {
+    background: rgba(231, 76, 60, 0.1);
+    transform: scale(1.2);
+}
+
+/* References Panel */
+.references-panel {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.references-panel.hidden {
+    display: none;
+}
+
+.ref-category {
+    margin-bottom: 1rem;
+}
+
+.ref-category h4 {
+    color: #2d3436;
+    font-size: 0.9rem;
+    margin: 0 0 0.5rem 0;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 0.25rem;
+}
+
+.ref-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.ref-tag {
+    background: #456dc3;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.ref-tag:hover {
+    background: #5b43b3;
+    transform: scale(1.05);
+}
+
+/* Main Editor */
+.editor-main {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    border: 4px solid #5a606d;
+    box-shadow: 0 10px 0px #879a9a, 0 15px 25px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Toolbar */
+.editor-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 2px solid #646c7d;
+    background: rgba(230, 235, 240, 0.5);
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.tool-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #5a606d;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #2d3436;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+.tool-btn:hover:not(:disabled) {
+    background: #f9a749;
+    border-color: #f1bc08;
+    transform: translateY(-2px);
+}
+
+.tool-btn:disabled {
+    background: rgba(200, 200, 200, 0.5);
+    color: #999;
+    cursor: not-allowed;
+    border-color: #ccc;
+}
+
+.word-count {
+    font-size: 0.9rem;
+    color: #636e72;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 6px;
+    border: 2px solid #ddd;
+}
+
+/* Editor Content */
+.editor-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.chapter-header {
+    padding: 1.5rem;
+    border-bottom: 2px solid #ddd;
+    background: rgba(249, 167, 73, 0.1);
+}
+
+.chapter-title-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2d3436;
+    font-family: 'Comic Sans MS', cursive;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.chapter-title-input:focus {
+    outline: none;
+    border-bottom-color: #f9a749;
+}
+
+.chapter-title-input::placeholder {
+    color: #636e72;
+}
+
+.chapter-meta {
+    margin-top: 0.5rem;
+}
+
+.chapter-tags-input {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    color: #2d3436;
+}
+
+.chapter-tags-input:focus {
+    outline: none;
+    border-color: #f9a749;
+}
+
+/* Writing Area */
+.writing-area {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.text-editor {
+    min-height: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #2d3436;
+    font-family: 'Georgia', serif;
+}
+
+.text-editor:empty::before {
+    content: attr(placeholder);
+    color: #636e72;
+    font-style: italic;
+}
+
+/* Story Elements */
+.story-branch {
+    background: rgba(70, 109, 195, 0.1);
+    border: 2px solid #456dc3;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.story-branch::before {
+    content: "🌿 BRANCH";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #456dc3;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.branch-title {
+    font-weight: bold;
+    color: #456dc3;
+    margin-bottom: 0.5rem;
+}
+
+.branch-choices {
+    margin-top: 0.5rem;
+}
+
+.choice-item {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.choice-text {
+    font-weight: bold;
+    color: #2d3436;
+    margin-bottom: 0.25rem;
+}
+
+.choice-outcome {
+    color: #636e72;
+    font-size: 0.9rem;
+    font-style: italic;
+}
+
+.story-note {
+    background: rgba(249, 167, 73, 0.1);
+    border: 2px solid #f9a749;
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+    position: relative;
+}
+
+.story-note::before {
+    content: "📝 NOTE";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    background: #f9a749;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.note-type {
+    font-size: 0.8rem;
+    color: #636e72;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.note-content {
+    color: #2d3436;
+    font-style: italic;
+}
+
+/* Choice Modal Styles */
+.choice-item {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.choice-input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.choice-input:focus {
+    outline: none;
+    border-color: #f9a749;
+}
+
+.choice-outcome {
+    width: 100%;
+    min-height: 60px;
+    padding: 0.5rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    resize: vertical;
+}
+
+.choice-outcome:focus {
+    outline: none;
+    border-color: #f9a749;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .editor-layout {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .editor-sidebar {
+        width: 100%;
+        order: 2;
+        max-height: 300px;
+    }
+    
+    .editor-main {
+        order: 1;
+        height: 60vh;
+        min-height: 400px;
+    }
+    
+    .toolbar-group {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 768px) {
+    .editor-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .toolbar-group {
+        justify-content: center;
+    }
+    
+    .editor-sidebar {
+        padding: 1rem;
+    }
+    
+    .chapter-header {
+        padding: 1rem;
+    }
+    
+    .writing-area {
+        padding: 1rem;
+    }
+}

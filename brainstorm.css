@@ -1,0 +1,538 @@
+/* Brainstorm Canvas Specific Styles */
+.brainstorm-container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.brainstorm-header {
+    background: rgba(230, 235, 240, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #5a606d;
+    border-radius: 10px;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.brainstorm-header h2 {
+    color: #2d3436;
+    font-size: 1.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 0px #ffffff, 1px 1px 0px rgba(249, 167, 73, 0.6);
+    font-family: 'Comic Sans MS', cursive;
+}
+
+.brainstorm-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.tool-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #5a606d;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.tool-btn:hover {
+    background: rgba(58, 90, 154, 0.1);
+    transform: translateY(-2px);
+}
+
+.tool-btn.active {
+    background: #3a5a9a;
+    color: white;
+    box-shadow: 0 4px 12px rgba(58, 90, 154, 0.3);
+}
+
+.color-picker {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.color-picker input[type="color"] {
+    width: 40px;
+    height: 40px;
+    border: 2px solid #5a606d;
+    border-radius: 50%;
+    cursor: pointer;
+    background: none;
+}
+
+.brush-size {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #2d3436;
+}
+
+.brush-size input[type="range"] {
+    width: 80px;
+}
+
+.action-btn {
+    background: #d18a39;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.action-btn:hover {
+    background: #b8732e;
+    transform: translateY(-2px);
+}
+
+.action-btn:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.action-btn:disabled:hover {
+    background: #d18a39 !important;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+.back-btn {
+    background: #6f7d7d;
+    text-decoration: none;
+}
+
+.back-btn:hover {
+    background: #5a606d;
+}
+
+.canvas-container {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #5a606d 0%, #6f7d7d 30%, #3a5a9a 60%, #4a3690 85%, #d18a39 100%);
+    background-size: 400% 400%;
+    animation: subtleGradient 30s ease infinite;
+}
+
+#drawingCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    cursor: crosshair;
+    background: 
+        radial-gradient(circle, rgba(255, 255, 255, 0.25) 0.5px, transparent 0.5px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        rgba(255, 255, 255, 0.08);
+    background-size: 24px 24px, 24px 24px, 24px 24px, 100% 100%;
+    width: 100%;
+    height: 100%;
+}
+
+#textElements, #stickyNotes, #arrows {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.text-element {
+    position: absolute;
+    color: #2d3436;
+    font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 2px solid #5a606d;
+    cursor: move;
+    pointer-events: all;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.text-element:hover {
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+    transform: translateY(-2px);
+}
+
+.sticky-note {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: move;
+    pointer-events: all;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+    font-size: 14px;
+    color: #2d3436;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+    overflow: hidden;
+    word-wrap: break-word;
+}
+
+.sticky-note:hover {
+    transform: translateY(-3px) rotate(1deg);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.arrow {
+    position: absolute;
+    pointer-events: all;
+    cursor: move;
+}
+
+.arrow svg {
+    overflow: visible;
+}
+
+.arrow line {
+    stroke: #2d3436;
+    stroke-width: 3;
+    marker-end: url(#arrowhead);
+}
+
+.arrow:hover line {
+    stroke: #3a5a9a;
+    stroke-width: 4;
+}
+
+/* Modal Styles */
+.text-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.text-modal.hidden {
+    display: none;
+}
+
+.text-modal .modal-content {
+    background: rgba(230, 235, 240, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 2px solid #5a606d;
+    max-width: 500px;
+    width: 90%;
+}
+
+.text-modal h3 {
+    margin-top: 0;
+    color: #2d3436;
+}
+
+.text-modal textarea {
+    width: 100%;
+    min-height: 100px;
+    margin: 1rem 0;
+    padding: 12px;
+    border: 2px solid #5a606d;
+    border-radius: 8px;
+    font-family: 'Comic Sans MS', 'Trebuchet MS', cursive, sans-serif;
+    font-size: 14px;
+    resize: vertical;
+}
+
+.text-style-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+
+.text-style-controls select {
+    padding: 8px;
+    border: 2px solid #5a606d;
+    border-radius: 6px;
+    background: white;
+}
+
+.text-style-controls label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.sticky-color-picker {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+    justify-content: center;
+}
+
+.color-option {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.selected {
+    border-color: #2d3436;
+    transform: scale(1.2);
+}
+
+.modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.modal-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.modal-actions button:first-child {
+    background: #6f7d7d;
+    color: white;
+}
+
+.modal-actions button:last-child {
+    background: #d18a39;
+    color: white;
+}
+
+.modal-actions button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Delete button for canvas elements */
+.delete-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 24px;
+    height: 24px;
+    background: #e74c3c;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.2s ease;
+    z-index: 10;
+    line-height: 1;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.4);
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.6);
+}
+
+/* Custom confirmation modal */
+.confirm-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.confirm-content {
+    background: rgba(230, 235, 240, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    border: 2px solid #5a606d;
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-content h3 {
+    margin-top: 0;
+    color: #e74c3c;
+    font-size: 1.4rem;
+}
+
+.confirm-content p {
+    color: #2d3436;
+    margin: 1rem 0 1.5rem;
+    line-height: 1.5;
+}
+
+.confirm-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.confirm-actions button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 80px;
+}
+
+.confirm-cancel {
+    background: #6f7d7d;
+    color: white;
+}
+
+.confirm-cancel:hover {
+    background: #5a606d;
+    transform: translateY(-2px);
+}
+
+.confirm-delete {
+    background: #e74c3c;
+    color: white;
+}
+
+.confirm-delete:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+}
+
+/* Enhanced text and sticky note styling */
+.text-element, .sticky-note {
+    position: relative;
+}
+
+.text-element:hover, .sticky-note:hover {
+    outline: 2px dashed #3a5a9a;
+    outline-offset: 2px;
+}
+
+.text-element:hover .delete-btn,
+.sticky-note:hover .delete-btn {
+    opacity: 1;
+}
+
+/* Improved click affordance */
+.text-element::after, .sticky-note::after {
+    content: '✏️ Click to edit';
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(58, 90, 154, 0.9);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.text-element:hover::after, .sticky-note:hover::after {
+    opacity: 1;
+}
+
+/* Undo/Redo button styles */
+.action-btn:disabled {
+    opacity: 0.5 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.action-btn:disabled:hover {
+    background: #d18a39 !important;
+    transform: none !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Add keyboard shortcut hints */
+#undoAction::after {
+    content: ' (Ctrl+Z)';
+    font-size: 0.7em;
+    opacity: 0.7;
+}
+
+#redoAction::after {
+    content: ' (Ctrl+Y)';
+    font-size: 0.7em;
+    opacity: 0.7;
+}
+
+/* Mobile - hide keyboard shortcuts */
+@media (max-width: 768px) {
+    #undoAction::after,
+    #redoAction::after {
+        display: none;
+    }
+    
+    .text-element::after, .sticky-note::after {
+        content: '👆 Tap to edit';
+        bottom: -30px;
+        font-size: 10px;
+    }
+    
+    .delete-btn {
+        opacity: 0.7; /* Always slightly visible on mobile */
+        width: 28px;
+        height: 28px;
+        font-size: 20px;
+    }
+}

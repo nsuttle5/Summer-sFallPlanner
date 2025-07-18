@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character List - Summer's Fall</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="character-list.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link active">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">�️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+            </div>
+        </nav>
+
+        <div class="page-header">
+            <h2>Character Directory</h2>
+            <p>Quick overview of all your characters</p>
+        </div>
+
+        <div class="controls">
+            <div class="search-bar">
+                <input type="text" id="listSearchInput" placeholder="Search characters...">
+            </div>
+            <div class="control-buttons">
+                <button class="add-btn" onclick="openAddModal()">+ Add Character</button>
+            </div>
+        </div>
+
+        <div class="list-container">
+            <div class="list-header">
+                <div class="sort-controls">
+                    <label for="sortBy">Sort by:</label>
+                    <select id="sortBy">
+                        <option value="name">Name</option>
+                        <option value="characterType">Type</option>
+                        <option value="age">Age</option>
+                        <option value="occupation">Occupation</option>
+                        <option value="dateAdded">Date Added</option>
+                    </select>
+                    <button id="toggleSort" class="sort-btn">↑↓</button>
+                </div>
+                <div class="view-controls">
+                    <button id="expandAll" class="view-btn">Expand All</button>
+                    <button id="collapseAll" class="view-btn">Collapse All</button>
+                </div>
+            </div>
+
+            <div class="character-list" id="characterList">
+                <!-- Character list items will be inserted here -->
+            </div>
+
+            <div class="empty-state" id="listEmptyState" style="display: none;">
+                <h3>No Characters Found</h3>
+                <p>Start building your character registry or adjust your search.</p>
+                <button class="add-btn" onclick="openAddModal()">+ Add Your First Character</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Character Modal (simplified) -->
+    <div class="modal" id="addCharacterModal">
+        <div class="modal-content">
+            <h2>Quick Add Character</h2>
+            <p>Add a basic character here, or go to the main registry for full details.</p>
+            <form id="quickAddForm">
+                <div class="form-group">
+                    <label for="quickName">Name *</label>
+                    <input type="text" id="quickName" required>
+                </div>
+                <div class="form-group">
+                    <label for="quickOccupation">Occupation</label>
+                    <input type="text" id="quickOccupation">
+                </div>
+                <div class="form-group">
+                    <label for="quickAge">Age</label>
+                    <input type="number" id="quickAge" min="0" max="150">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" onclick="closeAddModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Add Character</button>
+                    <a href="main.html" class="action-btn">Full Form</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="character-list.js"></script>
+</body>
+</html>
