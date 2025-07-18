@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer's Fall - Character Development Studio</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .landing-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            text-align: center;
+            color: white;
+        }
+        
+        .landing-content {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .landing-title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .landing-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .landing-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        @media (max-width: 768px) {
+            .landing-title {
+                font-size: 2rem;
+            }
+            
+            .landing-content {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="landing-page">
+        <div class="landing-content">
+            <h1 class="landing-title">Summer's Fall</h1>
+            <p class="landing-subtitle">Character Development Studio</p>
+            <p class="landing-description">
+                A comprehensive toolkit for creating, managing, and developing characters for your stories. 
+                Build detailed character profiles, manage relationships, track story arcs, and bring your fictional world to life.
+            </p>
+            
+            <a href="main.html" class="cta-button">
+                🚀 Enter Studio
+            </a>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <div class="feature-title">Character Profiles</div>
+                    <div class="feature-desc">Create detailed character sheets with images, backgrounds, and personality traits</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🕸️</div>
+                    <div class="feature-title">Relationship Web</div>
+                    <div class="feature-desc">Visualize complex character relationships and story connections</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚔️</div>
+                    <div class="feature-title">Quest Manager</div>
+                    <div class="feature-desc">Plan and track story arcs, quests, and character development</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">📖</div>
+                    <div class="feature-title">Story Editor</div>
+                    <div class="feature-desc">Write and organize your narrative with integrated character references</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <div class="feature-title">World Building</div>
+                    <div class="feature-desc">Create and manage locations, settings, and environments</div>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <div class="feature-title">Creative Tools</div>
+                    <div class="feature-desc">Brainstorming canvas and concept gallery for visual inspiration</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Auto-redirect after 3 seconds if user doesn't click
+        setTimeout(() => {
+            if (!document.hidden) {
+                window.location.href = 'main.html';
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
