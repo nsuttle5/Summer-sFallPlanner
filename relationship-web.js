@@ -123,9 +123,9 @@ class RelationshipWebManager {
         // Add character nodes
         characters.forEach((character, index) => {
             const nodeId = `character_${character.id}`;
-            // Position nodes in a tight circle around center
+            // Position nodes in a larger circle around center for better spacing
             const angle = (index / characters.length) * 2 * Math.PI;
-            const radius = 80; // Much smaller radius
+            const radius = 180; // Increased radius for better spacing
             this.nodes.push({
                 id: nodeId,
                 type: 'character',
@@ -140,9 +140,9 @@ class RelationshipWebManager {
         // Add location nodes
         locations.forEach((location, index) => {
             const nodeId = `location_${location.id}`;
-            // Position locations in slightly outer circle
+            // Position locations in outer circle with more spacing
             const angle = (index / locations.length) * 2 * Math.PI;
-            const radius = 120; // Much smaller radius
+            const radius = 280; // Increased radius for better spacing
             this.nodes.push({
                 id: nodeId,
                 type: 'location',
@@ -165,13 +165,13 @@ class RelationshipWebManager {
     getNodeRadius(data, type) {
         if (type === 'character') {
             switch (data.characterType) {
-                case 'main': return 30;
-                case 'side': return 25;
-                case 'background': return 20;
-                default: return 25;
+                case 'main': return 45; // Increased from 30
+                case 'side': return 35; // Increased from 25
+                case 'background': return 28; // Increased from 20
+                default: return 35; // Increased from 25
             }
         }
-        return 25;
+        return 35; // Increased from 25 for locations
     }
 
     getNodeColor(data, type) {
@@ -486,14 +486,14 @@ class RelationshipWebManager {
         const midY = (source.y + target.y) / 2;
         
         this.ctx.fillStyle = connection.color;
-        this.ctx.font = 'bold 10px Arial';
+        this.ctx.font = 'bold 14px Arial'; // Increased from 10px
         this.ctx.textAlign = 'center';
         this.ctx.textBaseline = 'middle';
         this.ctx.globalAlpha = 1;
         
-        // Add white background for text
+        // Add white background for text with larger stroke
         this.ctx.strokeStyle = '#ffffff';
-        this.ctx.lineWidth = 2;
+        this.ctx.lineWidth = 4; // Increased from 2
         this.ctx.strokeText(connection.type, midX, midY);
         this.ctx.fillText(connection.type, midX, midY);
         
@@ -533,16 +533,16 @@ class RelationshipWebManager {
         // Draw label if enabled
         if (this.filters.showLabels) {
             this.ctx.fillStyle = '#2d3436';
-            this.ctx.font = 'bold 14px Arial';
+            this.ctx.font = 'bold 16px Arial'; // Increased from 14px
             this.ctx.textAlign = 'center';
             this.ctx.textBaseline = 'top';
             this.ctx.strokeStyle = '#ffffff';
-            this.ctx.lineWidth = 3;
+            this.ctx.lineWidth = 4; // Increased from 3
             
             const name = node.data.name || node.data.title || 'Unknown';
-            // Add text outline for better visibility
-            this.ctx.strokeText(name, node.x, node.y + node.radius + 8);
-            this.ctx.fillText(name, node.x, node.y + node.radius + 8);
+            // Add text outline for better visibility with more spacing
+            this.ctx.strokeText(name, node.x, node.y + node.radius + 12); // Increased spacing from 8
+            this.ctx.fillText(name, node.x, node.y + node.radius + 12);
         }
         
         this.ctx.restore();
@@ -781,7 +781,7 @@ class RelationshipWebManager {
                 });
             } else {
                 locations.forEach(loc => {
-                    sourceSelect.innerHTML += `<option value="location_${loc.id}">${loc.title}</option>`;
+                    sourceSelect.innerHTML += `<option value="location_${loc.id}">${loc.name}</option>`;
                 });
             }
         };
@@ -797,7 +797,7 @@ class RelationshipWebManager {
                 });
             } else {
                 locations.forEach(loc => {
-                    targetSelect.innerHTML += `<option value="location_${loc.id}">${loc.title}</option>`;
+                    targetSelect.innerHTML += `<option value="location_${loc.id}">${loc.name}</option>`;
                 });
             }
         };

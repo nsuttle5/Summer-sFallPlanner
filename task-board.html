@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer's Fall - Task Board</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="task-board.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <h1>Summer's Fall</h1>
+                <span class="nav-subtitle">Character Development Studio</span>
+            </div>
+            <div class="nav-links">
+                <a href="main.html" class="nav-link">
+                    <span class="nav-icon">👥</span>
+                    <span class="nav-text">Characters</span>
+                </a>
+                <a href="character-list.html" class="nav-link">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Directory</span>
+                </a>
+                <a href="locations.html" class="nav-link">
+                    <span class="nav-icon">🗺️</span>
+                    <span class="nav-text">Locations</span>
+                </a>
+                <a href="brainstorm.html" class="nav-link">
+                    <span class="nav-icon">🎨</span>
+                    <span class="nav-text">Canvas</span>
+                </a>
+                <a href="story-editor.html" class="nav-link">
+                    <span class="nav-icon">📖</span>
+                    <span class="nav-text">Story</span>
+                </a>
+                <a href="concept-gallery.html" class="nav-link">
+                    <span class="nav-icon">🖼️</span>
+                    <span class="nav-text">Gallery</span>
+                </a>
+                <a href="quest-manager.html" class="nav-link">
+                    <span class="nav-icon">⚔️</span>
+                    <span class="nav-text">Quests</span>
+                </a>
+                <a href="relationship-web.html" class="nav-link">
+                    <span class="nav-icon">🕸️</span>
+                    <span class="nav-text">Relationships</span>
+                </a>
+                <a href="task-board.html" class="nav-link active">
+                    <span class="nav-icon">📋</span>
+                    <span class="nav-text">Tasks</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="page-header">
+                <h2>Task Board</h2>
+                <p>Manage your project tasks with a Trello-style board</p>
+                <button class="btn btn-primary" onclick="openTaskModal()">
+                    <span class="btn-icon">➕</span>
+                    Add Task
+                </button>
+            </div>
+
+            <!-- Board Controls -->
+            <div class="board-controls">
+                <div class="control-group">
+                    <label for="columnName">Add Column:</label>
+                    <div class="add-column-group">
+                        <input type="text" id="columnName" placeholder="Column name (e.g., 'In Review')">
+                        <button class="btn btn-secondary" onclick="addColumn()">Add Column</button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Filter by Category:</label>
+                    <select id="categoryFilter" onchange="filterTasks()">
+                        <option value="">All Categories</option>
+                        <option value="2d-art">2D Art</option>
+                        <option value="3d-art">3D Art</option>
+                        <option value="coding">Coding</option>
+                        <option value="writing">Writing</option>
+                        <option value="music">Music</option>
+                        <option value="design">Design</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label>Filter by Assignee:</label>
+                    <select id="assigneeFilter" onchange="filterTasks()">
+                        <option value="">All Assignees</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Task Board -->
+            <div class="task-board" id="taskBoard">
+                <!-- Default columns will be created by JavaScript -->
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal -->
+    <div class="modal-overlay" id="taskModalOverlay">
+        <div class="task-modal">
+            <div class="modal-header">
+                <h3 id="taskModalTitle">Add New Task</h3>
+                <button class="close-btn" onclick="closeTaskModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="taskForm">
+                    <div class="form-group">
+                        <label for="taskTitle">Task Title*</label>
+                        <input type="text" id="taskTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskDescription">Description</label>
+                        <textarea id="taskDescription" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskCategory">Category*</label>
+                            <select id="taskCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="2d-art">2D Art</option>
+                                <option value="3d-art">3D Art</option>
+                                <option value="coding">Coding</option>
+                                <option value="writing">Writing</option>
+                                <option value="music">Music</option>
+                                <option value="design">Design</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskAssignee">Assignee</label>
+                            <input type="text" id="taskAssignee" placeholder="Who's doing this task?">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="taskPriority">Priority</label>
+                            <select id="taskPriority">
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="taskDueDate">Due Date</label>
+                            <input type="date" id="taskDueDate">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="taskColumn">Column</label>
+                        <select id="taskColumn">
+                            <!-- Will be populated by JavaScript -->
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="closeTaskModal()">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="saveTask()">Save Task</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="task-board.js"></script>
+</body>
+</html>

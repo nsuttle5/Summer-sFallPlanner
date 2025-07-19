@@ -2,15 +2,16 @@
 
 .web-controls {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-    padding: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding: 3rem;
     background: rgba(230, 235, 240, 0.85);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     border: 4px solid #5a606d;
     box-shadow: 0 10px 0px #879a9a, 0 15px 25px rgba(0, 0, 0, 0.2);
+    min-height: 200px;
 }
 
 .control-section {
@@ -121,8 +122,9 @@
     border: 4px solid #5a606d;
     box-shadow: 0 10px 0px #879a9a, 0 15px 25px rgba(0, 0, 0, 0.2);
     overflow: hidden;
-    height: 600px;
-    margin-bottom: 2rem;
+    height: 800px; /* Increased from 700px for more space */
+    margin-bottom: 3rem;
+    padding: 2rem;
 }
 
 #relationshipCanvas {
